@@ -1,26 +1,30 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: #90f2ff;
+  font-size: 16px;
 }
 
 h1 {
   font-size: 20px;
 }
 
+.input_column,
+.output_column {
+  padding: 0 20px 20px 20px;
+}
+
 .input_column {
   float: left;
-  padding: 20px;
+  height: 100%;
   background-color: #faffb8;
 }
 
 .submit {
-  display:block;
+  display: block;
   margin: 30px auto 0 auto;
 }
 
 .output_column {
   float: left;
-  padding: 20px;
-  font-size: 14px;
-  background-color: #81f0ff;
 }

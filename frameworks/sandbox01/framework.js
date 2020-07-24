@@ -18,7 +18,7 @@ function addTextInput(id, title, defaultText="") {
     throw Error(`Invalid default text for input ID "${id}". String required.`)
   }
 
-  _addInput(title, `<input ${_getInputIDAtts()} type='text' value='` +
+  _addInput(title, `<input ${_getInputIDAtts(id)} type='text' value='` +
       _escapeAttr(defaultText) + "' />")
 }
 
@@ -34,7 +34,7 @@ function addListInput(id, title, options) {
     }
   }
 
-  let html = $(`<select ${_getInputIDAtts()} />`)
+  let html = $(`<select ${_getInputIDAtts(id)} />`)
   $.each(options, function(index, option) {
     html.append($("<option/>").attr("value", option).text(option))
   })
@@ -49,11 +49,11 @@ function getInput(id) {
 }
 
 function setOutputHTML(id, html) {
-  $(`#output_$id`).html(html)
+  $(`#${id}`).html(html)
 }
 
 function setOutputText(id, text) {
-  $(`#output_$id`).text(text)
+  $(`#${id}`).text(text)
 }
 
 function _addInputID(id) {
@@ -62,7 +62,6 @@ function _addInputID(id) {
     throw Error(`Input ID ${id} already in use`)
   }
   inputs[id] = null
-  alert("add input length = "+ Object.keys(inputs).length)
 }
 
 function _addInput(title, html) {
@@ -71,16 +70,12 @@ function _addInput(title, html) {
 }
 
 function _getInputIDAtts(id) {
-  return `name="input_${id} id="input_${id}`;
+  return `name="input_${id}" id="input_${id}"`;
 }
 
 function _submitInputs() {
-  // Object.keys(inputs).forEach((key, value) => {
-  //   inputs[key] = $(`#input_${key}`).value
-  //   alert("inputs[key] = "+ $(`#input_${key}`).value)
-  // })
-  $("form :input").each(function() {
-    inputs[this.name] = $(this).val()
+  Object.keys(inputs).forEach((key, value) => {
+    inputs[key] = $(`#input_${key}`).val()
   })
   showOutputs()
 }
