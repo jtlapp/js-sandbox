@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.input_column {
+  float: left;
+  padding: 20px;
+  background-color: #faffb8;
+}
+
+.submit {
+  display:block;
+  margin: 30px auto 0 auto;
+}
+
+.output_column {
+  float: left;
+  padding: 20px;
+  font-size: 14px;
+  background-color: #81f0ff;
+}

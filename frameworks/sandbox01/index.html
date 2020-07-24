@@ -1,0 +1,32 @@
+<html>
+<header>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="framework.js"></script>
+  <link rel="stylesheet" media="all" type="text/css" href="style.css" />
+
+  <script>
+    function showInputs() {
+      addTextInput("pet_name", "Pet's name", "Fido")
+    }
+
+    function showOutputs() {
+      setOutputText("output_id_goes_here", getInput("pet_name"))
+    }
+  </script>
+</header>
+<body>
+
+  <div class="input_column"> <!--DON'T EDIT THIS SECTION-->
+    <form method="post">
+      <div id="inputs"></div>
+      <input class="submit" type="submit" value="Submit" />
+    </form>
+  </div>
+
+  <div class="output_column"> <!--EDIT THIS SECTION-->
+    <h1>First Output</h1> 
+    <p id="output_id_goes_here">first output goes here</p>
+  </div>
+
+</body>
+</html>
