@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #90f2ff;
   font-size: 16px;
 }
 
@@ -26,7 +25,7 @@ select {
 .input_column {
   float: left;
   height: 100%;
-  background-color: #faffb8;
+  background-color: DeepSkyBlue;
 }
 
 .submit {

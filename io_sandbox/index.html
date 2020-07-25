@@ -7,29 +7,31 @@
   <script>
 
     function initialize() {
-      addTextInput("pet_name", "Pet's name", "Fido")
-      addListInput("breed", "Breed", ["Rottie", "Heeler", "Shar-Pei"], "Heeler")
+      addTextInput("dog_name", "Dog's Name", "Fido");
+      addListInput("breed", "Breed", ["Lab", "Pug", "Rottie"], "Pug");
     }
 
     function run() {
-      setOutputText("output_id_goes_here", 
-          getInput("pet_name") + " the " + getInput("breed"))
+      setOutputText("about_dog", 
+          getInput("dog_name") + " is a " + getInput("breed"))
     }
 
   </script>
 </header>
 <body>
 
-  <div class="input_column"> <!--DON'T EDIT THIS SECTION-->
+  <div class="input_column">
+    <!--DON'T CHANGE THIS SECTION-->
     <form method="post">
       <div id="inputs"></div>
       <input class="submit" type="submit" value="Submit" />
     </form>
   </div>
 
-  <div class="output_column"> <!--EDIT THIS SECTION-->
-    <h1>First Output</h1> 
-    <p id="output_id_goes_here">first output goes here</p>
+  <div class="output_column">
+    <!--CHANGE THIS SECTION-->
+    <h1>About the Dog</h1> 
+    <p id="about_dog">first output goes here</p>
   </div>
 
 </body>
