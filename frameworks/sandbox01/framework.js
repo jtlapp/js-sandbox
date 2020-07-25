@@ -7,7 +7,6 @@ $(document).ready(function() {
     event.preventDefault()
     _submitInputs()
   })
-
   initialize()
 })
 
@@ -33,7 +32,7 @@ function addListInput(id, title, options, defaultOption="") {
   }
   for (let i = 0; i < options.length; ++i) {
     if (typeof options[i] != "string") {
-      throw Error(`The input Id "${id}" option at index $i is not a string.`)
+      throw Error(`The input ID "${id}" option at index $i is not a string.`)
     }
   }
 
@@ -50,7 +49,7 @@ function addListInput(id, title, options, defaultOption="") {
 
 function getInput(id) {
   if (inputs[id] == undefined) {
-    throw Error(`Input id "${id}" not found`)
+    throw Error(`Input ID "${id}" not found`)
   }
   return inputs[id]
 }
