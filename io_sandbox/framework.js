@@ -1,6 +1,7 @@
 'use strict';
 
 var inputs = {}
+var outputs = {}
 
 $(document).ready(function() {
   $("form").on("submit", function(event) {
@@ -92,6 +93,12 @@ function _submitInputs() {
     inputs[key] = $(`#input_${key}`).val()
   })
   run()
+  if (typeof outputs != "object") {
+    alert("'outputs' is no longer an object")
+  }
+  for (let key of Object.keys(outputs)) {
+    setOutputText(key, outputs[key])
+  }
 }
  
 function _escapeAttr(value) {

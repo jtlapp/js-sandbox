@@ -12,8 +12,7 @@
     }
 
     function run() {
-      setOutputText("about_dog", 
-          getInput("dog_name") + " is a " + getInput("breed"))
+      outputs["about_dog"] = inputs["dog_name"] + " is a " + inputs["breed"]
     }
 
   </script>
@@ -31,7 +30,7 @@
   <div class="output_column">
     <!--CHANGE THIS SECTION-->
     <h1>About the Dog</h1> 
-    <p id="about_dog">first output goes here</p>
+    <p id="about_dog"></p>
   </div>
 
 </body>
