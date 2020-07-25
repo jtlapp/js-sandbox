@@ -1,14 +1,14 @@
 'use strict';
 
-$(document).ready(function() {
-  var inputs = {}
+var inputs = {}
 
+$(document).ready(function() {
   $("form").on("submit", function(event) {
     event.preventDefault()
     _submitInputs()
   })
 
-  showInputs()
+  initialize()
 })
 
 function addTextInput(id, title, defaultText="") {
@@ -22,11 +22,14 @@ function addTextInput(id, title, defaultText="") {
       _escapeAttr(defaultText) + "' />")
 }
 
-function addListInput(id, title, options) {
+function addListInput(id, title, options, defaultOption="") {
   _addInputID(id)
   _verifyInputTitle(title)
   if (!Array.isArray(options)) {
     throw Error(`Invalid options for input ID "${id}". Array of strings required.`)
+  }
+  if (options.length == 0) {
+    throw Error(`Option list for input ID "${id}" is empty.`)
   }
   for (let i = 0; i < options.length; ++i) {
     if (typeof options[i] != "string") {
@@ -36,7 +39,11 @@ function addListInput(id, title, options) {
 
   let html = $(`<select ${_getInputIDAtts(id)} />`)
   $.each(options, function(index, option) {
-    html.append($("<option/>").attr("value", option).text(option))
+    const optionElem = $("<option/>").attr("value", option)
+    if (option == defaultOption) {
+      optionElem.attr("selected", true)
+    }
+    html.append(optionElem.text(option))
   })
   _addInput(title, html)
 }
@@ -49,11 +56,11 @@ function getInput(id) {
 }
 
 function setOutputHTML(id, html) {
-  $(`#${id}`).html(html)
+  _getOutputElement(id).html(html)
 }
 
 function setOutputText(id, text) {
-  $(`#${id}`).text(text)
+  _getOutputElement(id).text(text)
 }
 
 function _addInputID(id) {
@@ -65,7 +72,7 @@ function _addInputID(id) {
 }
 
 function _addInput(title, html) {
-  $("#inputs").append("<h1>" + _escapeHtml(title) + "</h1>")
+  $("#inputs").append("<h1>" + _escapeHTML(title) + "</h1>")
   $("#inputs").append(html)
 }
 
@@ -73,24 +80,32 @@ function _getInputIDAtts(id) {
   return `name="input_${id}" id="input_${id}"`;
 }
 
+function _getOutputElement(id) {
+  const outputElem = $(`#${id}`)
+  if (outputElem.length == 0) {
+    throw Error(`Output element ID "${id}" not found`)
+  }
+  return outputElem
+}
+
 function _submitInputs() {
   Object.keys(inputs).forEach((key, value) => {
     inputs[key] = $(`#input_${key}`).val()
   })
-  showOutputs()
+  run()
 }
-
+ 
 function _escapeAttr(value) {
   return value.replace(/\"/g, "\\\"").replace(/\'/g, "\\\'")
 }
 
-function _escapeHtml(html) {
+function _escapeHTML(html) {
   return html
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+      .replace(/'/g, "&#039;")
 }
 
 function _verifyInputID(id) {
@@ -105,5 +120,8 @@ function _verifyInputID(id) {
 function _verifyInputTitle(title) {
   if (typeof title != "string") {
     throw Error("Invalid input title. String required.")
+  }
+  if (title.length == 0) {
+    throw Error("Input title string is empty.")
   }
 }
