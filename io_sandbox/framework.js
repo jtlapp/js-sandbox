@@ -49,25 +49,73 @@ function addListInput(id, title, options, defaultOption="") {
   _addInput(title, html)
 }
 
-function getInput(id) {
-  if (inputs[id] == undefined) {
-    _error(`Input ID "${id}" not found`)
+function appendHTML(id, html) {
+  _getOutputElement(id).append(html).html()
+}
+
+function appendHTMLLine(id, html) {
+  appendHTML(id, "<br />\n")
+  appendHTML(id, html)
+}
+
+function appendTextLine(id, text) {
+  appendHTML(id, "<br />\n")
+  appendText(id, text)
+}
+
+function appendParaHTML(id, html) {
+  appendHTML(id, `<p>${html}</p>\n`)
+}
+
+function appendParaText(id, text) {
+  appendParaHTML(id, _escapeHTML(text))
+}
+
+function appendText(id, text) {
+  appendHTML(id, _escapeHTML(text))
+}
+
+function getBoolean(id) {
+  _verifyInput(id)
+  switch (inputs[id].toLowerCase()) {
+    case "true":
+    case "yes":
+    case "on":
+      return true;
+    case "false":
+    case "no":
+    case "off":
+      return false;
+    default:
+      _error(`Input ID "${id}" does not contain a boolean value`)
   }
+}
+
+function getNumber(id) {
+  _verifyInput(id)
+  if (isNaN(inputs[id])) {
+    _error(`Input ID "${id}" does not contain a number`)
+  }
+  return Number(inputs[id])
+}
+
+function getString(id) {
+  _verifyInput(id)
   return inputs[id]
 }
 
-function setOutputHTML(id, html) {
+function setHTML(id, html) {
   _getOutputElement(id).html(html)
 }
 
-function setOutputText(id, text) {
+function setText(id, text) {
   _getOutputElement(id).text(text)
 }
 
 function _addInputID(id) {
   _verifyInputID(id)
   if (inputs[id] != undefined) {
-    _error(`Input ID ${id} already in use`)
+    _error(`Input ID "${id}" already in use`)
   }
   inputs[id] = null
 }
@@ -98,7 +146,7 @@ function _submitInputs() {
     alert("'outputs' is no longer an object")
   }
   for (let key of Object.keys(outputs)) {
-    setOutputText(key, outputs[key])
+    setText(key, outputs[key])
   }
 }
  
@@ -113,6 +161,13 @@ function _escapeHTML(html) {
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;")
+}
+
+function _verifyInput(id) {
+  _verifyInputID(id)
+  if (inputs[id] == undefined) {
+    _error(`Input ID "${id}" not found`)
+  }
 }
 
 function _verifyInputID(id) {
