@@ -12,7 +12,7 @@ $(document).ready(function() {
   initialize()
 })
 
-function addTextInput(id, title, defaultText="") {
+function makeTextInput(id, title, defaultText="") {
   _addInputID(id)
   _verifyInputTitle(title)
   if (typeof defaultText != "string") {
@@ -23,7 +23,7 @@ function addTextInput(id, title, defaultText="") {
       _escapeAttr(defaultText) + "' />")
 }
 
-function addListInput(id, title, options, defaultOption="") {
+function makeListInput(id, title, options, defaultOption="") {
   _addInputID(id)
   _verifyInputTitle(title)
   if (!Array.isArray(options)) {
@@ -53,22 +53,22 @@ function appendHTML(id, html) {
   _getOutputElement(id).append(html).html()
 }
 
-function appendHTMLLine(id, html) {
+function appendLineHTML(id, html) {
   appendHTML(id, "<br />\n")
   appendHTML(id, html)
 }
 
-function appendTextLine(id, text) {
+function appendLine(id, text) {
   appendHTML(id, "<br />\n")
   appendText(id, text)
 }
 
-function appendParaHTML(id, html) {
+function appendParagraphHTML(id, html) {
   appendHTML(id, `<p>${html}</p>\n`)
 }
 
-function appendParaText(id, text) {
-  appendParaHTML(id, _escapeHTML(text))
+function appendParagraph(id, text) {
+  appendParagraphHTML(id, _escapeHTML(text))
 }
 
 function appendText(id, text) {
@@ -109,7 +109,7 @@ function setHTML(id, html) {
 }
 
 function setText(id, text) {
-  _getOutputElement(id).text(text)
+  setHTML(id, _escapeHTML(text))
 }
 
 function _addInputID(id) {
