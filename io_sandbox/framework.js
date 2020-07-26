@@ -2,6 +2,7 @@
 
 var inputs = {}
 var outputs = {}
+var errorAlerts = false
 
 $(document).ready(function() {
   $("form").on("submit", function(event) {
@@ -15,7 +16,7 @@ function addTextInput(id, title, defaultText="") {
   _addInputID(id)
   _verifyInputTitle(title)
   if (typeof defaultText != "string") {
-    throw Error(`Invalid default text for input ID "${id}". String required.`)
+    _error(`Invalid default text for input ID "${id}". String required.`)
   }
 
   _addInput(title, `<input ${_getInputIDAtts(id)} type='text' value='` +
@@ -26,14 +27,14 @@ function addListInput(id, title, options, defaultOption="") {
   _addInputID(id)
   _verifyInputTitle(title)
   if (!Array.isArray(options)) {
-    throw Error(`Invalid options for input ID "${id}". Array of strings required.`)
+    _error(`Invalid options for input ID "${id}". Array of strings required.`)
   }
   if (options.length == 0) {
-    throw Error(`Option list for input ID "${id}" is empty.`)
+    _error(`Option list for input ID "${id}" is empty.`)
   }
   for (let i = 0; i < options.length; ++i) {
     if (typeof options[i] != "string") {
-      throw Error(`The input ID "${id}" option at index $i is not a string.`)
+      _error(`The input ID "${id}" option at index $i is not a string.`)
     }
   }
 
@@ -50,7 +51,7 @@ function addListInput(id, title, options, defaultOption="") {
 
 function getInput(id) {
   if (inputs[id] == undefined) {
-    throw Error(`Input ID "${id}" not found`)
+    _error(`Input ID "${id}" not found`)
   }
   return inputs[id]
 }
@@ -66,7 +67,7 @@ function setOutputText(id, text) {
 function _addInputID(id) {
   _verifyInputID(id)
   if (inputs[id] != undefined) {
-    throw Error(`Input ID ${id} already in use`)
+    _error(`Input ID ${id} already in use`)
   }
   inputs[id] = null
 }
@@ -83,7 +84,7 @@ function _getInputIDAtts(id) {
 function _getOutputElement(id) {
   const outputElem = $(`#${id}`)
   if (outputElem.length == 0) {
-    throw Error(`Output element ID "${id}" not found`)
+    _error(`Output element ID "${id}" not found`)
   }
   return outputElem
 }
@@ -116,18 +117,25 @@ function _escapeHTML(html) {
 
 function _verifyInputID(id) {
   if (typeof id != "string") {
-    throw Error("Invalid input ID. String required.")
+    _error("Invalid input ID. String required.")
   }
   if (!/^[a-zA-Z0-9_]+$/.test(id)) {
-    throw Error(`Invalid input ID "${id}". Must contain only letters, numbers, and underscores`)
+    _error(`Invalid input ID "${id}". Must contain only letters, numbers, and underscores`)
   }
 }
 
 function _verifyInputTitle(title) {
   if (typeof title != "string") {
-    throw Error("Invalid input title. String required.")
+    _error("Invalid input title. String required.")
   }
   if (title.length == 0) {
-    throw Error("Input title string is empty.")
+    _error("Input title string is empty.")
   }
+}
+
+function _error(message) {
+  if (errorAlerts) {
+    alert("ERROR: " + message)
+  }
+  throw Error(message)
 }
