@@ -126,6 +126,8 @@ function _addInput(title, html) {
 }
 
 function _getInputIDAtts(id) {
+  // Precede IDs with 'input_' to prevent name clashes with output IDs,
+  // which therefore need not have a common prefix.
   return `name="input_${id}" id="input_${id}"`;
 }
 
