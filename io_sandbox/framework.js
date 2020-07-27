@@ -50,7 +50,8 @@ function makeListInput(id, title, options, defaultOption="") {
 }
 
 function appendHTML(id, html) {
-  _getOutputElement(id).append(html).html()
+  const output = _toOutputString(id, html)
+  _getOutputElement(id).append(output).html()
 }
 
 function appendLineHTML(id, html) {
@@ -64,15 +65,18 @@ function appendLine(id, text) {
 }
 
 function appendParagraphHTML(id, html) {
-  appendHTML(id, `<p>${html}</p>\n`)
+  const output = _toOutputString(id, html)
+  appendHTML(id, `<p>${output}</p>\n`)
 }
 
 function appendParagraph(id, text) {
-  appendParagraphHTML(id, _escapeHTML(text))
+  const output = _toOutputString(id, text)
+  appendParagraphHTML(id, _escapeHTML(output))
 }
 
 function appendText(id, text) {
-  appendHTML(id, _escapeHTML(text))
+  const output = _toOutputString(id, text)
+  appendHTML(id, _escapeHTML(output))
 }
 
 function getBoolean(id) {
@@ -105,11 +109,13 @@ function getString(id) {
 }
 
 function setHTML(id, html) {
-  _getOutputElement(id).html(html)
+  const output = _toOutputString(id, html)
+  _getOutputElement(id).html(output)
 }
 
 function setText(id, text) {
-  setHTML(id, _escapeHTML(text))
+  const output = _toOutputString(id, text)
+  setHTML(id, _escapeHTML(output))
 }
 
 function _addInputID(id) {
@@ -188,6 +194,14 @@ function _verifyInputTitle(title) {
   if (title.length == 0) {
     _error("Input title string is empty.")
   }
+}
+
+function _toOutputString(id, output) {
+  const outputType = typeof output;
+  if (outputType != "string" && outputType != "boolean" && isNaN(output)) {
+    _error(`Output for ID "${id}" is not a string, a number, or a boolean`)
+  }
+  return ("" + output) // convert to a string
 }
 
 function _error(message) {
