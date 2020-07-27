@@ -143,7 +143,7 @@ function _submitInputs() {
   Object.keys(inputs).forEach((key, value) => {
     inputs[key] = $(`#input_${key}`).val()
   })
-  run()
+  compute()
   if (typeof outputs != "object") {
     alert("'outputs' is no longer an object")
   }
