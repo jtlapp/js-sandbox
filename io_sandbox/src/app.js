@@ -6,7 +6,7 @@ function initialize() {
     makeListInput("breed", "Breed", ["Lab", "Pug", "Rottie"], "Pug");
   }
 
-  function run() {
+  function compute() {
     // Set outputs values from inputs values.
     // Example: outputs.output_id = inputs.input_id
 

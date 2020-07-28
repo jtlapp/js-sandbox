@@ -1,9 +1,29 @@
 <html>
 <header>
+  <title>PixelArt Sandbox</title>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="framework.js"></script>
   <script src="app.js"></script>
   <link rel="stylesheet" media="all" type="text/css" href="style.css" />
+
+  <script>
+
+    function initialize() {
+      // makeTextInput(inputID, inputTitle, optionalDefaultValue)
+      // makeListInput(inputID, inputTitle, listOfOptions, optionalDefaultValue)
+  
+      makeTextInput("dog_name", "Dog's Name", "Fido");
+      makeListInput("breed", "Breed", ["Lab", "Pug", "Rottie"], "Pug");
+    }
+
+    function compute() {
+      // Set outputs values from inputs values.
+      // Example: outputs.output_id = inputs.input_id
+
+      outputs.about_dog = inputs.dog_name + " is a " + inputs.breed;
+    }
+
+  </script>
 </header>
 <body>
 
