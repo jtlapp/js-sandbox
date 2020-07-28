@@ -2,7 +2,7 @@
 
 var inputs = {}
 var outputs = {}
-var errorAlerts = false
+var errorAlerts = true
 
 $(document).ready(function() {
   $("form").on("submit", function(event) {
