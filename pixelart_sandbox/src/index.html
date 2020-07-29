@@ -1,44 +1,26 @@
 <html>
 <header>
-  <title>PixelArt Sandbox</title>
+  <title>Pixel Art Sandbox</title>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="framework.js"></script>
   <script src="app.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" media="all" type="text/css" href="style.css" />
-
-  <script>
-
-    function initialize() {
-      // makeTextInput(inputID, inputTitle, optionalDefaultValue)
-      // makeListInput(inputID, inputTitle, listOfOptions, optionalDefaultValue)
-  
-      makeTextInput("dog_name", "Dog's Name", "Fido");
-      makeListInput("breed", "Breed", ["Lab", "Pug", "Rottie"], "Pug");
-    }
-
-    function compute() {
-      // Set outputs values from inputs values.
-      // Example: outputs.output_id = inputs.input_id
-
-      outputs.about_dog = inputs.dog_name + " is a " + inputs.breed;
-    }
-
-  </script>
 </header>
 <body>
 
-  <div class="input_column">
-    <!--DON'T CHANGE THIS SECTION-->
-    <form method="post">
-      <div id="inputs"></div>
-      <input class="submit" type="submit" value="Submit" />
-    </form>
+  <!--DON'T CHANGE THE HTML-->
+
+  <div class="controls">
+    <button id="startstop">Start</button>
+    <button id="reset">Reset</button>
+    <div id="frame_number">Frame <span>0</span></div>
   </div>
 
-  <div class="output_column">
-    <!--CHANGE THIS SECTION-->
-    <h1>About the Dog</h1> 
-    <p id="about_dog"></p>
+  <div class="grid_box">
+    <div id="grid1" class="pixel_grid"></div>
+    <div id="grid2" class="pixel_grid"></div>
   </div>
 
 </body>
