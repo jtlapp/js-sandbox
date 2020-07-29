@@ -34,6 +34,11 @@ class PixelArtCanvas {
       width = this.gridWidth;
       height = this.gridHeight;
     }
+    this._validateDimensions(width, height);
+    if (initialValue != null && typeof initialValue != "string") {
+      _error("initialValue must either be null or a CSS class string");
+    }
+ 
     const matrix = [];
     for (var r = 0; r < height; ++r) {
       const columns = [];
@@ -46,11 +51,15 @@ class PixelArtCanvas {
   }
   
   setDimensions(width, height) {
+    this._validateDimensions(width, height);
     this.gridWidth = width;
     this.gridHeight = height;
   }
   
   setDelay(delayMilliseconds) {
+    if (isNaN(delayMilliseconds) || delayMilliseconds < 0) {
+      _error("delayMilliseconds must be a number >= 0");
+    }
     this.delayMillis = delayMilliseconds;
   }
   
@@ -169,6 +178,15 @@ class PixelArtCanvas {
   _start() {
     this._renderNextFrame();
   }
+
+  _validateDimensions(width, height) {
+    if (isNaN(width) || isNaN(height)) {
+      _error("width and height must be numbers");
+    }
+    if (width < 1 || height < 1) {
+      _error("width and height must be >= 1");
+    }
+  }
 }
 
 var canvas;
@@ -189,7 +207,7 @@ $(document).ready(function() {
 
 class StartStopButton {
 
-  constructor (id, startFunc, stopFunc) {
+  constructor(id, startFunc, stopFunc) {
     this.button = $("#" + id);
     this.reset();
     this.button.click((event) => {
@@ -209,7 +227,73 @@ class StartStopButton {
     this.button.text("Start");
   }
 }
+
+class Pixie {
   
+  constructor(colors, template) {
+
+    if (typeof colors != "object") {
+      _error("colors must be a dictionary mapping " +
+          "characters to CSS class strings");
+    }
+    if (!Array.isArray(template)) {
+      _error(`provided template is not an array`);
+    }
+
+    this.grid = [];
+    this.width = 0;
+    this.height = template.length;
+
+    for (let r = 0; r < this.height; ++r) {
+      const templateString = template[r];
+      if (typeof templateString != "string") {
+        _error(`template[${r}] is not a string`);
+      }
+
+      const targetRow = [];
+      const rowWidth = templateString.length;
+      this.width = Math.max(this.width, rowWidth);
+
+      for (let c = 0; c < rowWidth; ++c) {
+        const templateChar = templateString[c];
+        const color = colors[templateChar];
+        if (color === undefined) {
+          _error(`could not find color for character '${templateChar}'`)
+        }
+        if (color !== null && typeof color != "string") {
+          _error(`template[${r}]: color for character '${templateChar}' ` +
+              "is neither null nor a string");
+        }
+        targetRow.push(color);
+      }
+      this.grid.push(targetRow);
+    }
+  }
+
+  draw(frame, topLeftX, topLeftY) {
+    const frameWidth = frame[0].length;
+    const frameHeight = frame.length;
+
+    if (topLeftX + this.width < 0 || topLeftX >= frameWidth) {
+      return; // not visible in frame
+    }
+    if (topLeftY + this.height < 0 || topLeftY >= frameHeight) {
+      return; // not visible in frame
+    }
+
+    for (let r = 0; r < this.height; ++r) {
+      const gridRow = this.grid[r];
+      for (let c = 0; c < gridRow.length; ++c) {
+        const x = topLeftX + c;
+        const y = topLeftY + r;
+        if (x >= 0 && x < frameWidth && y >= 0 && y < frameHeight) {
+          frame[y][x] = gridRow[c];
+        }
+      }
+    }
+  }
+}
+
 function _error(message) {
   if (errorAlerts) {
     alert("ERROR: " + message);

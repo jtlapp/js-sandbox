@@ -1,8 +1,20 @@
+var pixie;
+
 function initialize() {
   // canvas.setDimensions(width, height)
   // canvas.setDelay(delayMilliseconds)
 
-  canvas.setDelay(250);
+  const colors = {
+    " ": null,
+    "+": "blue",
+    "-": "green"
+  }
+  pixie = new Pixie(colors, [
+    " -",
+    "-+-",
+    " -"
+  ])
+  canvas.setDelay(300);
 }
 
 function makeNextFrame(frameNumber) {
@@ -13,6 +25,7 @@ function makeNextFrame(frameNumber) {
 
   let m = canvas.createMatrix();
   let x = (frameNumber - 1) % 10;
-  m[x][x] = "green";
+  pixie.draw(m, x, x);
+  //m[x][x] = "green";
   return m
 }
