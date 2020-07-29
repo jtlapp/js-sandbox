@@ -1,6 +1,6 @@
 'use strict';
 
-var errorAlerts = false;
+var errorAlerts = true;
 
 class PixelArtCanvas {
 
