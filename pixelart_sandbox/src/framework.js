@@ -29,7 +29,7 @@ class PixelArtCanvas {
         this._start.bind(this), this.end.bind(this));
   }
 
-  createMatrix(width, height, initialValue=null) {
+  createFrame(width, height, initialValue=null) {
     if (width === undefined) {
       width = this.gridWidth;
       height = this.gridHeight;
@@ -82,7 +82,7 @@ class PixelArtCanvas {
       this._start();
     } else {
       this.startStopButton.reset();
-      this._renderFrame(this.createMatrix());
+      this._renderFrame(this.createFrame());
     }
   }
 
@@ -134,7 +134,7 @@ class PixelArtCanvas {
   }
   
   _renderNextFrame() {
-    const frame = makeNextFrame(++this.frameNumber);
+    const frame = makeNextFrame(this.frameNumber++);
     if (!Array.isArray(frame)) {
       _error(`provided matrix is not an array`);
     }

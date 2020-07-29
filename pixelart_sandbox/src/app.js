@@ -8,29 +8,28 @@ function initialize() {
     " ": null,
     "+": "blue",
     "-": "green"
-  }
+  };
   pixie = new Pixie(colors, [
     " -",
     "-+-",
     " -"
-  ])
+  ]);
   canvas.setDelay(300);
 }
 
 function makeNextFrame(frameNumber) {
-  // createMatrix() - creates matrix at size of grid
-  // createMatrix(width, height, initialValue=null)
+  // createFrame() - creates frame at size of the grid
+  // createFrame(width, height, initialValue=null)
   // reset() - re-initializes and restarts the animation
   // end() - stops the animation
 
-  let m = canvas.createMatrix();
-  let x = (frameNumber - 1) % 10;
-  pixie.draw(m, x, x);
+  let f = canvas.createFrame();
+  let s = frameNumber % 10;
+  pixie.draw(f, s, s);
 
-  // let s = (frameNumber - 1) % 10;
-  // m[s][s] = "blue";
-  // m[1][s] = "green";
-  // m[8][9-s] = "red";
+  // f[s][s] = "blue";
+  // f[1][s] = "green";
+  // f[8][9-s] = "red";
 
-  return m
+  return f;
 }
