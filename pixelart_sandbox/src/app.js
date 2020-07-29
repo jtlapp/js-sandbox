@@ -26,6 +26,11 @@ function makeNextFrame(frameNumber) {
   let m = canvas.createMatrix();
   let x = (frameNumber - 1) % 10;
   pixie.draw(m, x, x);
-  //m[x][x] = "green";
+
+  // let s = (frameNumber - 1) % 10;
+  // m[s][s] = "blue";
+  // m[1][s] = "green";
+  // m[8][9-s] = "red";
+
   return m
 }

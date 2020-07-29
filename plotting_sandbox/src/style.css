@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+.grid_box {
+    position: relative;
+}
+
+.pixel_grid {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#canvas {
+    margin: auto;
+    background-color: #000000;
+}
+
+.green {
+    background-color: #00aa00;
+}
+
+.red {
+    background-color: #aa0000;
+}

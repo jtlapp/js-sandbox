@@ -102,7 +102,7 @@ class PixelArtCanvas {
   }
 
   _createGridHTML() {
-    let html = "<table>\n";
+    let html = "<table id='canvas'>\n";
     for (let r = 0; r < this.gridWidth; ++r) {
       html += "<tr>";
       for (let c = 0; c < this.gridHeight; ++c) {
