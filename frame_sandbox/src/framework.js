@@ -2,7 +2,7 @@
 
 var errorAlerts = true;
 
-class PixelArtCanvas {
+class Canvas {
 
   constructor() {
 
@@ -193,7 +193,7 @@ var canvas;
 
 $(document).ready(function() {
 
-  canvas = new PixelArtCanvas();
+  canvas = new Canvas();
   canvas._init();
 
   $("#reset").click(function (event) {
