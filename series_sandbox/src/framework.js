@@ -47,19 +47,19 @@ class Canvas {
     
   swap() {
     if (this.plottingFrame1) {
-      this.grid2.addClass("hide");
-      this.grid1.removeClass("hide");
-    } else {
       this.grid1.addClass("hide");
       this.grid2.removeClass("hide");
+    } else {
+      this.grid2.addClass("hide");
+      this.grid1.removeClass("hide");
     }
     this.plottingFrame1 = !this.plottingFrame1;
   }
 
-  async wait(milliseconds) {
+  async delay(milliseconds) {
     if (isNaN(milliseconds) || milliseconds < 0 ||
     milliseconds >= 2000) {
-      _error("waitMilliseconds must be a number between 0 and 2000");
+      _error("milliseconds must be a number between 0 and 2000");
     }
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -99,15 +99,6 @@ class Canvas {
     return html + "</table>\n";
   }
   
-  async _reset() {
-    if (!this.running) {
-      this.startStopButton.reset();
-      this.clear();
-      this.swap();
-      this.clear();
-    }
-  }
-
   _setGridAspectRatio() {
     const topOffset = Math.max(this.table1.getBoundingClientRect().top,
         this.table2.getBoundingClientRect().top);
@@ -129,9 +120,9 @@ class Canvas {
   }
   
   async _start() {
-    // this.clear();
-    // this.swap();
-    // this.clear();
+    this.clear();
+    this.swap();
+    this.clear();
     this.running = true;
     await animate();
     this.running = false;
@@ -177,10 +168,6 @@ $(document).ready(function() {
   canvas = new Canvas();
   canvas._init();
 
-  $("#reset").click(async function (event) {
-    await canvas._reset();
-  })
-
   $(window).resize(function (event) {
     canvas._setGridAspectRatio();
   })
@@ -192,12 +179,14 @@ class StartStopButton {
     const self = this;
 
     this.button = $("#" + id);
+    this.ran = false;
     this.reset();
     this.button.click(async function (event) {
       if (self.running) {
-        self.running = false;
+        self.reset();
         stopFunc();
       } else {
+        self.ran = true;
         self.button.text("Stop");
         self.running = true;
         await startFunc();
@@ -207,7 +196,7 @@ class StartStopButton {
 
   reset() {
     this.running = false;
-    this.button.text("Start");
+    this.button.text(this.ran ? "Restart" : "Start");
   }
 }
 
@@ -215,8 +204,8 @@ function plot(x, y, color) {
   canvas.plot(x, y, color);
 }
 
-async function wait(milliseconds) {
-  await canvas.wait(milliseconds);
+async function delay(milliseconds) {
+  await canvas.delay(milliseconds);
 }
 
 function clear() {
