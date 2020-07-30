@@ -20,6 +20,8 @@ class Plot {
 }
 
 function plot(x, y, color) {
+  x = Math.floor(x);
+  y = Math.floor(y);
   _validatePoint(x, y);
   _validateColor(color);
   _canvas.plots.push(new Plot(x, y, color));
