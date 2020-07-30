@@ -42,6 +42,9 @@ table, tr, td {
 
 .pixel_grid table {
     margin: auto;
+}
+
+.canvas {
     background-color: #000000;
 }
 
