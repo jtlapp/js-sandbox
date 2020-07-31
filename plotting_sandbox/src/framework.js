@@ -40,9 +40,9 @@ function _initialize() {
 
 function _createGridHTML() {
   let html = "<table id='canvas'>\n";
-  for (let r = 0; r < canvasWidth; ++r) {
+  for (let r = 0; r < canvasHeight; ++r) {
     html += "<tr>";
-    for (let c = 0; c < canvasHeight; ++c) {
+    for (let c = 0; c < canvasWidth; ++c) {
       html += "<td></td>";
     }
     html += "</tr>\n";

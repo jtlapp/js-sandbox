@@ -103,9 +103,9 @@ class Canvas {
 
   _createGridHTML() {
     let html = "<table class='canvas'>\n";
-    for (let r = 0; r < this.gridWidth; ++r) {
+    for (let r = 0; r < this.gridHeight; ++r) {
       html += "<tr>";
-      for (let c = 0; c < this.gridHeight; ++c) {
+      for (let c = 0; c < this.gridWidth; ++c) {
         html += "<td></td>";
       }
       html += "</tr>\n";

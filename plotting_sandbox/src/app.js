@@ -1,5 +1,5 @@
 canvasWidth = 10;
-canvasHeight = 10;
+canvasHeight = 20;
 
 // plot(x, y, color) - color is either null or a CSS class
 plot(1, 2, "green");
