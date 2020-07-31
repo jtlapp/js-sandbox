@@ -1,21 +1,21 @@
 canvasWidth = 10;
 canvasHeight = 10;
+delayMilliseconds = 500;
 
 async function animate() {
   // plot(x, y, color) - color is either null or a CSS class
-  // await delay(milliseconds) - pause animation for so many milliseconds
+  // await delay() - pause animation for delayMilliseconds
   // swap() - swap between the two drawing grids
   // clear() - clear the current drawing grid
 
-  let millis = 500; // milliseconds
   plot(0, 0, "green");
-  await delay(millis);
+  await delay();
   plot(1, 1, "green");
-  await delay(millis);
+  await delay();
   plot(2, 2, "green");
-  await delay(millis);
+  await delay();
   plot(3, 3, "green");
-  await delay(millis);
+  await delay();
   plot(4, 4, "green");
-  await delay(millis);
+  await delay();
 }

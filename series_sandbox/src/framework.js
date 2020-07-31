@@ -4,6 +4,7 @@ var errorAlerts = true;
 
 var canvasWidth = 10;
 var canvasHeight = 10;
+var delayMilliseconds = 500;
 
 class Canvas {
 
@@ -56,11 +57,7 @@ class Canvas {
     this.plottingFrame1 = !this.plottingFrame1;
   }
 
-  async delay(milliseconds) {
-    if (isNaN(milliseconds) || milliseconds < 0 ||
-    milliseconds >= 2000) {
-      _error("milliseconds must be a number between 0 and 2000");
-    }
+  async delay() {
     return new Promise((resolve) => {
       setTimeout(() => {
         if (!this.running) {
@@ -68,12 +65,13 @@ class Canvas {
           throw Error("STOPPED ANIMATION");
         }
         resolve();
-      }, milliseconds);
+      }, delayMilliseconds);
     });
   }
   
   _init() {
     this._validateDimensions(canvasWidth, canvasHeight);
+    this._validateDelay(delayMilliseconds);
     const gridHTML = this._createGridHTML();
     this.grid1 = $("#grid1");
     this.grid1.append(gridHTML);
@@ -139,6 +137,13 @@ class Canvas {
   _validateColor(color) {
     if (color != null && (typeof color != "string" || color.length == 0)) {
       _error("color must either be null or a CSS class name");
+    }
+  }
+
+  _validateDelay() {
+    if (isNaN(delayMilliseconds) || delayMilliseconds < 0 ||
+        delayMilliseconds >= 2000) {
+      _error("delayMilliseconds must be a number between 0 and 2000");
     }
   }
 
