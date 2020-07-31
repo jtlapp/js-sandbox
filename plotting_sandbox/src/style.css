@@ -20,10 +20,36 @@ body {
     background-color: #000000;
 }
 
-.green {
-    background-color: #00aa00;
+.black {
+    background-color: black;
 }
-
+.blue {
+    background-color: blue;
+}
+.brown {
+    background-color: brown;
+}
+.green {
+    background-color: green;
+}
+.orange {
+    background-color: orange;
+}
+.pink {
+    background-color: pink;
+}
+.purple {
+    background-color: purple;
+}
 .red {
-    background-color: #aa0000;
+    background-color: red;
+}
+.skyblue {
+    background-color: skyblue;
+}
+.white {
+    background-color: white;
+}
+.yellow {
+    background-color: yellow;
 }
