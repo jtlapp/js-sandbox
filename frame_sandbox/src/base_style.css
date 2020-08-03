@@ -44,44 +44,6 @@ table, tr, td {
     margin: auto;
 }
 
-.canvas {
-    background-color: #000000;
-}
-
 .hide {
     display: none;
-}
-
-.black {
-    background-color: black;
-}
-.blue {
-    background-color: blue;
-}
-.brown {
-    background-color: brown;
-}
-.green {
-    background-color: green;
-}
-.orange {
-    background-color: orange;
-}
-.pink {
-    background-color: pink;
-}
-.purple {
-    background-color: purple;
-}
-.red {
-    background-color: red;
-}
-.skyblue {
-    background-color: skyblue;
-}
-.white {
-    background-color: white;
-}
-.yellow {
-    background-color: yellow;
 }
