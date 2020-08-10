@@ -4,6 +4,7 @@ var errorAlerts = true;
 
 var canvasWidth = 10;
 var canvasHeight = 10;
+var enforceBoundaries = true;
 
 var _canvas = {
   table: null,
@@ -22,9 +23,10 @@ class Plot {
 function plot(x, y, color) {
   x = Math.floor(x);
   y = Math.floor(y);
-  _validatePoint(x, y);
   _validateColor(color);
-  _canvas.plots.push(new Plot(x, y, color));
+  if (_validatePoint(x, y)) {
+    _canvas.plots.push(new Plot(x, y, color));
+  }
 }
   
 function _initialize() {
@@ -89,8 +91,12 @@ function _validatePoint(x, y) {
     _error("x and y must be numbers");
   }
   if (x < 0 || x >= canvasWidth || y < 0 || y >= canvasHeight) {
-    _error("the (x, y) coordinates are not on the grid");
+    if (enforceBoundaries)
+      _error("the (x, y) coordinates are not on the grid");
+    else
+      return false;
   }
+  return true;
 }
 
 function _validateColor(color) {

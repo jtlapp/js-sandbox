@@ -5,6 +5,7 @@ var errorAlerts = true;
 var canvasWidth = 10;
 var canvasHeight = 10;
 var delayMilliseconds = 500;
+var enforceBoundaries = true;
 
 class Canvas {
 
@@ -40,10 +41,11 @@ class Canvas {
   plot(x, y, color) {
     x = Math.floor(x);
     y = Math.floor(y);
-    this._validatePoint(x, y);
     this._validateColor(color);
-    const rows = this.plottingFrame1 ? this.rows1 : this.rows2;
-    rows[y].children[x].className = color;
+    if (this._validatePoint(x, y)) {
+      const rows = this.plottingFrame1 ? this.rows1 : this.rows2;
+      rows[y].children[x].className = color;
+    }
   }
     
   swap() {
@@ -161,8 +163,12 @@ class Canvas {
       _error("x and y must be numbers");
     }
     if (x < 0 || x >= canvasWidth || y < 0 || y >= canvasHeight) {
-      _error("the (x, y) coordinates are not on the grid");
+      if (enforceBoundaries)
+        _error("the (x, y) coordinates are not on the grid");
+      else
+        return false;
     }
+    return true;
   }
 }
 

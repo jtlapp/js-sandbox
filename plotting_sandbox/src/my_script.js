@@ -1,5 +1,6 @@
 canvasWidth = 10;
 canvasHeight = 10;
+enforceBoundaries = true;
 
 // plot(x, y, color) - color is either null or a CSS class
 plot(1, 2, "green");

@@ -1,6 +1,7 @@
 canvasWidth = 10;
 canvasHeight = 10;
 delayMilliseconds = 500;
+enforceBoundaries = true;
 
 async function animate() {
   // plot(x, y, color) - color is either null or a CSS class
